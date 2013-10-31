@@ -19,7 +19,7 @@ module.exports = function(grunt) {
     wrapup: require('./grunt/config/wrapup'),
     populist: require('./grunt/config/populist'),
     phantom: require('./grunt/config/phantom'),
-    connect: require('./grunt/config/server'),
+    connect: require('./grunt/config/server')(grunt),
     "saucelabs-jasmine": require('./grunt/config/saucelabs-jasmine'),
     npm: require('./grunt/config/npm'),
     clean: ['./build', './*.gem', './docs/_site', './examples/shared/*.js'],
