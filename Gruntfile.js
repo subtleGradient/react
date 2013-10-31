@@ -6,6 +6,7 @@ var browserifyTask = require('./grunt/tasks/browserify');
 var wrapupTask = require('./grunt/tasks/wrapup');
 var populistTask = require('./grunt/tasks/populist');
 var phantomTask = require('./grunt/tasks/phantom');
+var webdriverJasmineTasks = require('./grunt/tasks/webdriver-jasmine.js');
 var npmTask = require('./grunt/tasks/npm');
 var releaseTasks = require('./grunt/tasks/release');
 
@@ -20,7 +21,7 @@ module.exports = function(grunt) {
     populist: require('./grunt/config/populist'),
     phantom: require('./grunt/config/phantom'),
     connect: require('./grunt/config/server')(grunt),
-    "saucelabs-jasmine": require('./grunt/config/saucelabs-jasmine'),
+    "webdriver-jasmine": require('./grunt/config/webdriver-jasmine.js'),
     npm: require('./grunt/config/npm'),
     clean: ['./build', './*.gem', './docs/_site', './examples/shared/*.js'],
     jshint: require('./grunt/config/jshint'),
@@ -49,6 +50,8 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('populist', populistTask);
 
   grunt.registerMultiTask('phantom', phantomTask);
+
+  grunt.registerMultiTask('webdriver-jasmine', webdriverJasmineTasks);
 
   grunt.registerMultiTask('npm', npmTask);
 
@@ -79,10 +82,9 @@ module.exports = function(grunt) {
     'populist:test'
   ]);
 
-  grunt.registerTask('test:browser', [
-    'build:test',
+  grunt.registerTask('test:webdriver', [
     'connect',
-    'saucelabs-jasmine'
+    'webdriver-jasmine:local'
   ]);
   grunt.registerTask('test', ['build:test', 'build:basic', 'phantom:run']);
   grunt.registerTask('npm:test', ['build', 'npm:pack']);
